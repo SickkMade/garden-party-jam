@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96a121079902440acbc9229fddb215a1, type: 3}
+  m_Name: Test Placeable Object
+  m_EditorClassIdentifier: 
+  itemName: Test Place Item
+  itemIcon: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  price: 100
+  itemType: 2
+  weaponItem:
+    clipSize: 0
+    currentAmmo: 0
+    weaponPrefab: {fileID: 0}
+    damage: 0
+    attackSpeed: 0
+    attackSound: {fileID: 0}
+  placeableItem:
+    placeableItemPrefab: {fileID: 2830471985748804918, guid: 6e590200ca4a149bdad4941b59ba538f, type: 3}
