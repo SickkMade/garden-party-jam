@@ -33,6 +33,8 @@ public class BasicCharacterController : MonoBehaviour
     [SerializeField]
     private LayerMask groundMask;
     private float rotationX = 0f;
+    private float mouseY = 0f;
+    private float mouseX = 0f;
 
     private float horizontal = 0;
     private float vertical = 0;
@@ -61,6 +63,7 @@ public class BasicCharacterController : MonoBehaviour
             inputReader.moveEvent += OnMove;
             inputReader.jumpEvent += Jump;
             inputReader.sprintEvent += SetSpeed;
+            inputReader.lookEvent += SetRotation;
         }
     }
 
@@ -87,10 +90,10 @@ public class BasicCharacterController : MonoBehaviour
         //left and right rot
         // I was wondering why mouse look was funky, it turns out that
         // against what you would expect, mouse look works better without taking delta time into account
-        transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
+        transform.rotation *= Quaternion.Euler(0, mouseX * lookSpeed, 0);
 
         //updown rot
-        rotationX += -Input.GetAxis("Mouse Y") * lookSpeed;
+        rotationX += -mouseY * lookSpeed;
         rotationX = Mathf.Clamp(rotationX, -90, 90);
         playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
 
@@ -125,6 +128,12 @@ public class BasicCharacterController : MonoBehaviour
         {
             speed = walkSpeed;
         }
+    }
+
+    private void SetRotation(Vector2 look)
+    {
+        mouseX = look[0];
+        mouseY = look[1];
     }
 }
 
