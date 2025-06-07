@@ -7,6 +7,8 @@ using UnityEngine.TextCore.Text;
 [RequireComponent(typeof(CharacterController))]
 public class BasicCharacterController : MonoBehaviour
 {
+    [SerializeField] InputReader inputReader;
+
     [Header("Player Control Options")]
     [SerializeField, Range(0, 100)]
     float jumpHeight = 1;
@@ -32,6 +34,9 @@ public class BasicCharacterController : MonoBehaviour
     private LayerMask groundMask;
     private float rotationX = 0f;
 
+    private float horizontal = 0;
+    private float vertical = 0;
+
     bool dead;
 
     bool IsGrounded => characterController.isGrounded;
@@ -50,6 +55,13 @@ public class BasicCharacterController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         speed = walkSpeed;
+
+        if (inputReader != null)
+        {
+            inputReader.moveEvent += OnMove;
+            inputReader.jumpEvent += Jump;
+            inputReader.sprintEvent += SetSpeed;
+        }
     }
 
     void Update()
@@ -57,43 +69,13 @@ public class BasicCharacterController : MonoBehaviour
 
         if (Time.timeScale < 0.01f || dead) return;
 
-        if (IsGrounded)
-        {
-
-            if (Input.GetButtonDown("Jump"))
-            {
-                Jump();
-            }
-
-            if (Input.GetKey(KeyCode.LeftShift))
-            {
-                speed = runSpeed;
-            }
-            else
-            {
-                speed = walkSpeed;
-            }
-        }
         else
         {
             // gravity
             yVelocity += Physics.gravity.y * gravityMultiplier * Time.deltaTime;
         }
 
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
-
-        // moving the character controller
         Vector3 inputDirection = new Vector3(horizontal, 0, vertical).normalized;
-
-        // if (inputDirection != Vector3.zero)
-        // {
-        //     AudioManager.Instance.StartWalking();
-        // }
-        // else
-        // {
-        //     AudioManager.Instance.StopWalking();
-        // }
 
         // get a smooth input intensity to give smoothing to start/stop
         float inputIntensity = Mathf.Max(Mathf.Abs(horizontal), Mathf.Abs(vertical));
@@ -114,12 +96,35 @@ public class BasicCharacterController : MonoBehaviour
 
     }
 
+    private void OnMove(Vector2 dir)
+    {
+        horizontal = dir[0];
+        vertical = dir[1];
+
+        // moving the character controller
+
+    }
 
     private void Jump()
     {
+        if (!IsGrounded) return;
 
         float jumpSpeed = Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y * gravityMultiplier);
         yVelocity = jumpSpeed;
+    }
+
+    private void SetSpeed(float isSprinting)
+    {
+        if (!IsGrounded) return;
+
+        if (isSprinting > 0.5f)
+        {
+            speed = runSpeed;
+        }
+        else
+        {
+            speed = walkSpeed;
+        }
     }
 }
 

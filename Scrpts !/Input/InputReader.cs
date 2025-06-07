@@ -8,7 +8,7 @@ public class InputReader : ScriptableObject, PlayerGameplayInput.IPlayerActions
     public Action<Vector2> moveEvent;
     public Action interactEvent;
     public Action jumpEvent;
-    public Action sprintEvent;
+    public Action<float> sprintEvent;
 
     private PlayerGameplayInput playerGameplayInput;
 
@@ -45,6 +45,6 @@ public class InputReader : ScriptableObject, PlayerGameplayInput.IPlayerActions
 
     public void OnSprint(InputAction.CallbackContext context)
     {
-        if(context.phase == InputActionPhase.Performed) sprintEvent?.Invoke();
+        sprintEvent?.Invoke(context.ReadValue<float>());
     }
 }
