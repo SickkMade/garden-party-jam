@@ -154,15 +154,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Hotbar 10"",
-                    ""type"": ""Button"",
-                    ""id"": ""520df5f2-4ded-45a2-b2fa-eafb23e07588"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Hotbar Scroll"",
                     ""type"": ""PassThrough"",
                     ""id"": ""07fb7b9d-1692-4445-b197-d0e6eafd0e52"",
@@ -527,19 +518,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""8d2ef43d-e410-4908-ba3e-215757b384f3"",
-                    ""path"": ""<Keyboard>/0"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Hotbar 10"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""871146f3-42e7-4ce3-b62f-a073d8217232"",
-                    ""path"": ""<Mouse>/scroll/down"",
+                    ""path"": ""<Mouse>/scroll/y"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -1165,7 +1145,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_Hotbar7 = m_Player.FindAction("Hotbar 7", throwIfNotFound: true);
         m_Player_Hotbar8 = m_Player.FindAction("Hotbar 8", throwIfNotFound: true);
         m_Player_Hotbar9 = m_Player.FindAction("Hotbar 9", throwIfNotFound: true);
-        m_Player_Hotbar10 = m_Player.FindAction("Hotbar 10", throwIfNotFound: true);
         m_Player_HotbarScroll = m_Player.FindAction("Hotbar Scroll", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
@@ -1261,7 +1240,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Hotbar7;
     private readonly InputAction m_Player_Hotbar8;
     private readonly InputAction m_Player_Hotbar9;
-    private readonly InputAction m_Player_Hotbar10;
     private readonly InputAction m_Player_HotbarScroll;
     public struct PlayerActions
     {
@@ -1281,7 +1259,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         public InputAction @Hotbar7 => m_Wrapper.m_Player_Hotbar7;
         public InputAction @Hotbar8 => m_Wrapper.m_Player_Hotbar8;
         public InputAction @Hotbar9 => m_Wrapper.m_Player_Hotbar9;
-        public InputAction @Hotbar10 => m_Wrapper.m_Player_Hotbar10;
         public InputAction @HotbarScroll => m_Wrapper.m_Player_HotbarScroll;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
@@ -1334,9 +1311,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Hotbar9.started += instance.OnHotbar9;
             @Hotbar9.performed += instance.OnHotbar9;
             @Hotbar9.canceled += instance.OnHotbar9;
-            @Hotbar10.started += instance.OnHotbar10;
-            @Hotbar10.performed += instance.OnHotbar10;
-            @Hotbar10.canceled += instance.OnHotbar10;
             @HotbarScroll.started += instance.OnHotbarScroll;
             @HotbarScroll.performed += instance.OnHotbarScroll;
             @HotbarScroll.canceled += instance.OnHotbarScroll;
@@ -1386,9 +1360,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Hotbar9.started -= instance.OnHotbar9;
             @Hotbar9.performed -= instance.OnHotbar9;
             @Hotbar9.canceled -= instance.OnHotbar9;
-            @Hotbar10.started -= instance.OnHotbar10;
-            @Hotbar10.performed -= instance.OnHotbar10;
-            @Hotbar10.canceled -= instance.OnHotbar10;
             @HotbarScroll.started -= instance.OnHotbarScroll;
             @HotbarScroll.performed -= instance.OnHotbarScroll;
             @HotbarScroll.canceled -= instance.OnHotbarScroll;
@@ -1596,7 +1567,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         void OnHotbar7(InputAction.CallbackContext context);
         void OnHotbar8(InputAction.CallbackContext context);
         void OnHotbar9(InputAction.CallbackContext context);
-        void OnHotbar10(InputAction.CallbackContext context);
         void OnHotbarScroll(InputAction.CallbackContext context);
     }
     public interface IUIActions

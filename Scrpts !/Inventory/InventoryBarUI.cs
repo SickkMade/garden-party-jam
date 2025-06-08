@@ -12,6 +12,7 @@ public class InventoryBarUI : MonoBehaviour
 
     //vars
     private List<InventorySlotUI> inventoryUIList = new();
+    public List<InventorySlotUI> InventoryUIList => inventoryUIList;
 
     void Start()
     {

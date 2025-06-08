@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
+using Unity.VisualScripting;
 
 [CreateAssetMenu(fileName = "InputReader", menuName = "Game/Input Reader")]
 public class InputReader : ScriptableObject, InputSystem_Actions.IPlayerActions
@@ -13,16 +14,17 @@ public class InputReader : ScriptableObject, InputSystem_Actions.IPlayerActions
 
 
     //hotbar
-    public Action hotbar1;
-    public Action hotbar2;
-    public Action hotbar3;
-    public Action hotbar4;
-    public Action hotbar5;
-    public Action hotbar6;
-    public Action hotbar7;
-    public Action hotbar8;
-    public Action hotbar9;
-    public Action hotbar10;
+    public Action<int> hotbar1;
+    public Action<int> hotbar2;
+    public Action<int> hotbar3;
+    public Action<int> hotbar4;
+    public Action<int> hotbar5;
+    public Action<int> hotbar6;
+    public Action<int> hotbar7;
+    public Action<int> hotbar8;
+    public Action<int> hotbar9;
+
+    public Action<float> hotbarScroll;
 
     private InputSystem_Actions playerGameplayInput;
 
@@ -72,55 +74,56 @@ public class InputReader : ScriptableObject, InputSystem_Actions.IPlayerActions
 
     public void OnHotbar1(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Performed) hotbar1?.Invoke();
+        if (context.phase == InputActionPhase.Performed) hotbar1?.Invoke(1);
     }
 
     public void OnHotbar2(InputAction.CallbackContext context)
     {
-        throw new NotImplementedException();
+        if (context.phase == InputActionPhase.Performed) hotbar2?.Invoke(2);
     }
 
     public void OnHotbar3(InputAction.CallbackContext context)
     {
-        throw new NotImplementedException();
+        if (context.phase == InputActionPhase.Performed) hotbar3?.Invoke(3);
     }
 
     public void OnHotbar4(InputAction.CallbackContext context)
     {
-        throw new NotImplementedException();
+        if (context.phase == InputActionPhase.Performed) hotbar4?.Invoke(4);
     }
 
     public void OnHotbar5(InputAction.CallbackContext context)
     {
-        throw new NotImplementedException();
+        if (context.phase == InputActionPhase.Performed) hotbar5?.Invoke(5);
     }
 
     public void OnHotbar6(InputAction.CallbackContext context)
     {
-        throw new NotImplementedException();
+        if (context.phase == InputActionPhase.Performed) hotbar6?.Invoke(6);
     }
 
     public void OnHotbar7(InputAction.CallbackContext context)
     {
-        throw new NotImplementedException();
+        if (context.phase == InputActionPhase.Performed) hotbar7?.Invoke(7);
     }
 
     public void OnHotbar8(InputAction.CallbackContext context)
     {
-        throw new NotImplementedException();
+        if (context.phase == InputActionPhase.Performed) hotbar8?.Invoke(8);
     }
 
     public void OnHotbar9(InputAction.CallbackContext context)
     {
-        throw new NotImplementedException();
+        if (context.phase == InputActionPhase.Performed) hotbar9?.Invoke(9);
+    }
+
+
+    public void OnHotbarScroll(InputAction.CallbackContext context)
+    {
+        hotbarScroll?.Invoke(context.ReadValue<float>());
     }
 
     public void OnHotbar10(InputAction.CallbackContext context)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void OnHotbarScroll(InputAction.CallbackContext context)
     {
         throw new NotImplementedException();
     }

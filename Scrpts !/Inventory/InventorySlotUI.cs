@@ -12,10 +12,17 @@ public class InventorySlotUI : MonoBehaviour
     private Image spriteImage;
     [SerializeField]
     private GameObject countParent;
+    [SerializeField]
+    private Image selectedBackground;
     public void SetSlotData(Sprite sprite, int quantity)
     {
         UpdateSprite(sprite);
         UpdateText(quantity.ToString());
+    }
+
+    public void SetSelectedBackgroundActive(bool isActive)
+    {
+        selectedBackground.enabled = isActive;
     }
 
     private void UpdateSprite(Sprite sprite)
@@ -27,7 +34,7 @@ public class InventorySlotUI : MonoBehaviour
         else
         {
             spriteImage.enabled = true;
-            spriteImage.sprite = sprite;       
+            spriteImage.sprite = sprite;
         }
     }
     private void UpdateText(string text)
