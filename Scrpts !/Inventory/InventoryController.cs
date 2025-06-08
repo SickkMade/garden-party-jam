@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,8 +11,11 @@ public class InventoryController : MonoBehaviour
     private List<InventorySlotUI> inventoryList;
     private HotbarSelected currentHotbarSlot = HotbarSelected.one;
     private HotbarSelected lastHotbarSlot;
-    private float currentWheelDirection;
     private float scrollTimer;
+    [SerializeField]
+    private float scrollDelay = 0.05f;
+    [SerializeField]
+    private float scrollThreshold = 0.1f;
 
     private void Start()
     {
@@ -29,16 +33,15 @@ public class InventoryController : MonoBehaviour
         inputReader.hotbar9 += OnHotbar;
 
         inputReader.hotbarScroll += OnScrollWheel;
-    }
-    void Update()
-    {
-        if (currentWheelDirection != 0)
+
+        if (inventoryList.Count != Enum.GetValues(typeof(HotbarSelected)).Length)
         {
-            ScrollHotbar();
+            Debug.LogWarning("Inventory list size does not match number of Hotbar slots!");
         }
     }
     private void OnHotbar(int hotbarNum)
     {
+        if (hotbarNum < 1 || hotbarNum > 10) return;
         SetCurrentHotbar((HotbarSelected)(hotbarNum - 1));
     }
     private void SetCurrentHotbar(HotbarSelected newHotbarSlot)
@@ -52,27 +55,14 @@ public class InventoryController : MonoBehaviour
 
     private void OnScrollWheel(float wheelDir)
     {
-        currentWheelDirection = wheelDir;
-    }
-    private void ScrollHotbar()
-    {
-        scrollTimer += Time.deltaTime;
-        
-        if (currentWheelDirection < -0.1f && scrollTimer > 0.05f)
-        {
-            int newSlot = (int)(currentHotbarSlot + 1) % (inventoryList.Count - 1);
-            SetCurrentHotbar((HotbarSelected)newSlot);
+        if (Mathf.Abs(wheelDir) < scrollThreshold || Time.time - scrollTimer < scrollDelay)
+            return;
 
-            scrollTimer = 0;
-        }
-        else if (currentWheelDirection > 0.1f && scrollTimer > 0.05f)
-        {
-            int newSlot = (int)currentHotbarSlot - 1;
-            if (newSlot < 0) newSlot = inventoryList.Count - 1;
-            SetCurrentHotbar((HotbarSelected)newSlot);
+        int delta = wheelDir < 0 ? -1 : 1;
+        int newSlot = ((int)currentHotbarSlot + delta + inventoryList.Count) % inventoryList.Count;
+        SetCurrentHotbar((HotbarSelected)newSlot);
 
-            scrollTimer = 0;
-        }
+        scrollTimer = Time.time;
     }
 }
 
