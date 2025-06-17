@@ -20,7 +20,7 @@ public class InventoryBarUI : MonoBehaviour
         {
             inventoryUIList.Add(Instantiate(inventoryUIPrefab, this.transform).GetComponent<InventorySlotUI>());
         }
-        
+
         UpdateInventory();
     }
 
@@ -28,13 +28,8 @@ public class InventoryBarUI : MonoBehaviour
     {
         for (int i = 0; i < inventory.inventory.Count; i++)
         {
-            int quantity = inventory.inventory[i].quantity;
-            Sprite sprite = null;
-            if (inventory.inventory[i].item != null)
-            {
-                sprite = inventory.inventory[i].item.itemIcon;
-            }
-            inventoryUIList[i].SetSlotData(sprite, quantity);
+            InventorySlot inventorySlot = inventory.inventory[i];
+            inventoryUIList[i].SetSlotData(inventorySlot);  
         }
     }
 }

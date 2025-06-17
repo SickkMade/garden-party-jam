@@ -14,8 +14,18 @@ public class InventorySlotUI : MonoBehaviour
     private GameObject countParent;
     [SerializeField]
     private Image selectedBackground;
-    public void SetSlotData(Sprite sprite, int quantity)
+    private InventorySlot currentInventorySlot;
+    public InventorySlot CurrentInventorySlot => currentInventorySlot;
+    public void SetSlotData(InventorySlot inventorySlot)
     {
+        int quantity = inventorySlot.quantity;
+        currentInventorySlot = inventorySlot;
+        Sprite sprite = null;
+        if (inventorySlot.item != null)
+        {
+            sprite = inventorySlot.item.itemIcon;
+        }
+
         UpdateSprite(sprite);
         UpdateText(quantity.ToString());
     }

@@ -11,6 +11,7 @@ public class InventoryController : MonoBehaviour
     private List<InventorySlotUI> inventoryList;
     private HotbarSelected currentHotbarSlot = HotbarSelected.one;
     private HotbarSelected lastHotbarSlot;
+    private InventorySO currentItem;
     private float scrollTimer;
     [SerializeField]
     private float scrollDelay = 0.05f;
@@ -48,6 +49,8 @@ public class InventoryController : MonoBehaviour
     {
         lastHotbarSlot = currentHotbarSlot;
         currentHotbarSlot = newHotbarSlot;
+
+        currentItem.inventory[0] = inventoryList[(int)currentHotbarSlot].CurrentInventorySlot;
 
         inventoryList[(int)lastHotbarSlot].SetSelectedBackgroundActive(false);
         inventoryList[(int)currentHotbarSlot].SetSelectedBackgroundActive(true);
