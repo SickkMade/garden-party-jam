@@ -41,7 +41,7 @@ public class InventoryController : MonoBehaviour
     }
     private void OnHotbar(int hotbarNum)
     {
-        if (hotbarNum < 1 || hotbarNum > 10) return;
+        if (hotbarNum < 1 || hotbarNum > inventoryList.Count) return;
         SetCurrentHotbar((HotbarSelected)(hotbarNum - 1));
     }
     private void SetCurrentHotbar(HotbarSelected newHotbarSlot)
