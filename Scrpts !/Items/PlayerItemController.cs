@@ -9,6 +9,9 @@ public class PlayerItemController : MonoBehaviour
     private InventorySO allItemsSO;
     private Dictionary<string, GameObject> instantiatedHoldableItemsDict = new();
     private GameObject weaponHolder;
+    private GameObject currentItem;
+    [SerializeField]
+    private InventorySO currentItemSO;
 
     void Start()
     {
@@ -36,5 +39,15 @@ public class PlayerItemController : MonoBehaviour
             instantiatedHoldableItemsDict.Add(allItemsSO.inventory[i].item.itemName, instantiatedItem);
             instantiatedItem.SetActive(false);
         }
+    }
+
+    public void ChangeHeldItem()
+    {
+        if (currentItem != null)
+        {
+            currentItem.SetActive(false);
+        }
+        currentItem = instantiatedHoldableItemsDict[currentItemSO.inventory[0].item.itemName];
+        currentItem.SetActive(true);
     }
 }

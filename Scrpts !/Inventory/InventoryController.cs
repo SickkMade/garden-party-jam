@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(InventoryBarUI))]
 public class InventoryController : MonoBehaviour
@@ -11,12 +12,15 @@ public class InventoryController : MonoBehaviour
     private List<InventorySlotUI> inventoryList;
     private HotbarSelected currentHotbarSlot = HotbarSelected.one;
     private HotbarSelected lastHotbarSlot;
+    [SerializeField]
     private InventorySO currentItem;
     private float scrollTimer;
     [SerializeField]
     private float scrollDelay = 0.05f;
     [SerializeField]
     private float scrollThreshold = 0.1f;
+
+    public UnityEvent onHotbarChange;
 
     private void Start()
     {
@@ -47,6 +51,8 @@ public class InventoryController : MonoBehaviour
     }
     private void SetCurrentHotbar(HotbarSelected newHotbarSlot)
     {
+        onHotbarChange?.Invoke();
+
         lastHotbarSlot = currentHotbarSlot;
         currentHotbarSlot = newHotbarSlot;
 
