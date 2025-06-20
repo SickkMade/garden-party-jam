@@ -49,5 +49,5 @@ public class PlayerItemController : MonoBehaviour
         }
         currentItem = instantiatedHoldableItemsDict[currentItemSO.inventory[0].item.itemName];
         currentItem.SetActive(true);
-    }
+    } 
 }
