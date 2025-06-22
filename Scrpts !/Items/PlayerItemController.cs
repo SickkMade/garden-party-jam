@@ -42,7 +42,7 @@ public class PlayerItemController : MonoBehaviour
     }
 
     public void ChangeHeldItem()
-    {
+    { 
         if (currentItem != null)
         {
             currentItem.SetActive(false);
