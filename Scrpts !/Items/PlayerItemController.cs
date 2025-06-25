@@ -42,11 +42,12 @@ public class PlayerItemController : MonoBehaviour
     }
 
     public void ChangeHeldItem()
-    { 
+    {
         if (currentItem != null)
         {
             currentItem.SetActive(false);
         }
+        if (currentItemSO.inventory[0].item == null) return;
         currentItem = instantiatedHoldableItemsDict[currentItemSO.inventory[0].item.itemName];
         currentItem.SetActive(true);
     } 
